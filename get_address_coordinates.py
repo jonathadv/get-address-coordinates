@@ -26,7 +26,7 @@ class Address:
         return result
 
 
-def get_address_info(address, city):filename
+def get_address_info(address, city):
     params = address +' '+ city
     print('[GET to Maps API] - Address: (%s)' % params)
     response = requests.get(google_maps_endpoint + params)
@@ -86,7 +86,10 @@ def main():
         
     address_list = read_file_as_list(input_filename)
 
-    for addrr in address_list:
+    for addrr in address_list:        
+        if len(addrr) is 0: 
+            continue
+        
         if addrr[0] is '#':
             current_city = addrr[1:]
             print('Setting city as %s' % current_city)
