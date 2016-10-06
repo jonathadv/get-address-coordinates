@@ -87,7 +87,7 @@ File addresses_fail.txt save!
 
 A file with the retrieved addresses in JSON format.
 
-```
+```json
 { "address": "Av. Cristóvão Colombo, 1824 - Floresta, Porto Alegre - RS, 90560-002, Brazil", "latitude": -30.0181229, "longitude": -51.2028571 }
 { "address": "R. Landel de Moura, 551 - Tristeza, Porto Alegre - RS, 91920-150, Brazil", "latitude": -30.1161201, "longitude": -51.2547028 }
 { "address": "Av. Protásio Alves, 555 - Alto Petrópolis, Porto Alegre - RS, Brazil", "latitude": -30.038557, "longitude": -51.2026718 }
