@@ -1,18 +1,19 @@
 #!/usr/bin/python3
-
 #!-*- conding: utf8 -*-
 
-import json, os
+import json
+import os
 
 try:
     import requests
 
 except ImportError:
-    print('Please install Python3 requests.')
+    print('Please install Python3 Requests.')
     os._exit(1)
 
 
-google_maps_endpoint='http://maps.googleapis.com/maps/api/geocode/json?address='
+google_maps_endpoint = 'http://maps.googleapis.com/maps/api/geocode/json?address='
+
 
 class Address:
     def __init__(self, address, latitude, longitude):
@@ -31,7 +32,7 @@ class Address:
 
 def get_address_info(address, city):
     params = '%s %s' % (address, city)
-    
+
     response = requests.get(google_maps_endpoint + params)
 
     if response.ok:
@@ -50,16 +51,16 @@ def get_address_info(address, city):
 
         return address_object
     else:
-        raise Exception('Error when calling API for address: ' + address + '. Error: '+response.reason)
+        raise Exception('Error when calling API for address: %s. Error %s' % (address, response.reason))
 
 
 def read_file_as_list(filename):
-    try:        
+    try:
         new_file = open(filename, 'r').readlines()
     except IOError:
         print('File \'%s\' not found. Please create it.' % filename)
         os._exit(1)
-        
+
     for index, line in enumerate(new_file):
         new_line = line.replace('\n', '')
         new_file[index] = new_line
@@ -82,19 +83,18 @@ def main():
     address_json_list = []
     address_with_fail = []
     current_city = None
-    input_filename='addresses.txt'
-        
+    input_filename = 'addresses.txt'
+
     address_list = read_file_as_list(input_filename)
 
-    for address in address_list:        
-        if len(address) is 0: 
+    for address in address_list:
+        if len(address) is 0:
             continue
-        
+
         if address[0] is '#':
             current_city = address[1:]
             print('Setting city as %s' % current_city)
             continue
-        
 
         print('[GET GMaps API] - Address: (%s %s)' % (address, current_city))
         address_object = get_address_info(address, current_city)
@@ -109,7 +109,7 @@ def main():
         save_file_from_list('addresses.json', address_json_list)
     else:
         print('No successfull results to save.')
-    
+
     if len(address_with_fail) > 0:
         save_file_from_list('addresses_fail.txt', address_with_fail)
     else:
@@ -118,4 +118,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
